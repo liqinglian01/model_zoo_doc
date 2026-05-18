@@ -84,7 +84,7 @@ sample_name/
 
 ## 推理接口
 
-`rdk_x5` 分支的 Python sample 统一使用 `hbm_runtime` 推理接口。完整接口参考 [RDK X5 hbm_runtime Python API 文档](../../03_Basic_Application/06_multi_media_sp_dev_api/RDK_X5/pydev_multimedia_api_x5/pydev_hbdnn_demo.md)。
+`rdk_x5` 分支的 Python sample 统一使用 `hbm_runtime` 推理接口。完整接口参考 [RDK X5 hbm_runtime Python API 文档](https://developer.d-robotics.cc/rdk_x_doc1/Basic_Application/multi_media_sp_dev_api/RDK_X5/pydev_multimedia_api_x5/ai-python-api)。
 
 C++ 推理接口文档：**`hb_dnn` C/C++ 推理接口文档** 👉 [Runtime 开发文档](https://developer.d-robotics.cc/api/v1/fileData/x5_doc-v126cn/runtime/source/runtime_dev.html)
 

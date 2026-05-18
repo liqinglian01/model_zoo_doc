@@ -23,6 +23,7 @@ const DEFAULT_PRODUCT_EN = DEFAULT_PRODUCT_ZH;
 
 const LEGACY_STORAGE_VERSION = 'doc_scope_version';
 const LEGACY_STORAGE_PRODUCT = 'doc_scope_product';
+const SUPPORTED_STORAGE_LOCALES = ['zh-Hans', 'en'];
 
 function storageKeys(locale) {
   return {
@@ -62,9 +63,15 @@ function normalizeVersionFromQuery(v, locale) {
 
 function saveToStorage(version, product, locale) {
   try {
-    const { version: vk, product: pk } = storageKeys(locale);
-    localStorage.setItem(vk, version);
-    localStorage.setItem(pk, product);
+    const targets = new Set([locale, ...SUPPORTED_STORAGE_LOCALES]);
+    targets.forEach((loc) => {
+      const { version: vk, product: pk } = storageKeys(loc);
+      localStorage.setItem(vk, version);
+      localStorage.setItem(pk, product);
+    });
+    // Keep legacy keys in sync to avoid old sessions causing drift.
+    localStorage.setItem(LEGACY_STORAGE_VERSION, version);
+    localStorage.setItem(LEGACY_STORAGE_PRODUCT, product);
   } catch (e) {
     // localStorage 不可用时忽略
   }
@@ -78,6 +85,20 @@ function loadFromStorage(locale) {
     if (!v && locale === 'zh-Hans') {
       v = localStorage.getItem(LEGACY_STORAGE_VERSION);
       pRaw = localStorage.getItem(LEGACY_STORAGE_PRODUCT);
+    }
+    // Cross-locale fallback: language switch links may drop query params.
+    if (!v) {
+      for (const fallbackLocale of SUPPORTED_STORAGE_LOCALES) {
+        if (fallbackLocale === locale) continue;
+        const { version: fvk, product: fpk } = storageKeys(fallbackLocale);
+        const fv = localStorage.getItem(fvk);
+        const fp = localStorage.getItem(fpk);
+        if (fv) {
+          v = fv;
+          pRaw = fp;
+          break;
+        }
+      }
     }
     if (v && VERSION_PRODUCT_MATRIX[v]) {
       const p = resolveProductForVersion(pRaw, v);
@@ -166,10 +187,10 @@ export function DocScopeFilterProvider({ children }) {
     const pathnameNoSlash = normalizePathname(location.pathname);
     const enRoot = normalizePathname(`${base}en/`);
 
-    // 仅在站点入口做默认兜底：
-    // /rdk_x_doc/ 或 /rdk_x_doc/en/ -> /rdk_x_doc/model_zoo_intro
+    // 仅在站点入口做默认中文兜底：
+    // /rdk_x_doc/ 或 /rdk_x_doc/en/ -> /rdk_x_doc/RDK
     if (pathnameNoSlash === baseNoSlash || pathnameNoSlash === enRoot) {
-      history.replace(`${base}model_zoo_intro${location.search}${location.hash}`);
+      history.replace(`${base}RDK${location.search}${location.hash}`);
     }
   }, [
     hasBuildScope,

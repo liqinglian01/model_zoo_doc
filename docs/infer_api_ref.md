@@ -64,7 +64,7 @@ result = outputs[model_name][output_names[0]]
 
 #### 详细 API 文档
 
-👉 [RDK X5 hbm_runtime Python API 文档](../../03_Basic_Application/06_multi_media_sp_dev_api/RDK_X5/pydev_multimedia_api_x5/pydev_hbdnn_demo.md)
+👉 [RDK X5 hbm_runtime Python API 文档](https://developer.d-robotics.cc/rdk_x_doc/Basic_Application/multi_media_sp_dev_api/RDK_X5/pydev_multimedia_api_x5/ai-python-api)
 
 </DocScope>
 
@@ -107,7 +107,7 @@ result = outputs[model_name][output_names[0]]
 
 #### 详细 API 文档
 
-👉 [RDK S hbm_runtime Python API 文档](/rdk_s/Algorithm_Application/python-api)
+👉 [RDK S hbm_runtime Python API 文档](https://developer.d-robotics.cc/rdk_s_doc/Basic_Application/multi_media_sp_dev_api/RDK_s100/pydev_multimedia_api_/ai-python-api)
 
 </DocScope>
 

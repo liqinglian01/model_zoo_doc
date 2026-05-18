@@ -30,6 +30,16 @@ const config = {
   //add by xgs for build reduce bug
   onBrokenLinks: "warn", // 或 'ignore'
   onBrokenMarkdownLinks: "warn",
+  headTags: [
+    {
+      tagName: "script",
+      attributes: {
+        defer: "defer",
+        src: "https://cloud.umami.is/script.js",
+        "data-website-id": "fbd84605-92b5-43f6-aa3e-4861b62ea8df",
+      },
+    },
+  ],
 
   //add vy xgs for analysis
   scripts: [
