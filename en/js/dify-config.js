@@ -1,5 +1,5 @@
 window.difyChatbotConfig = {
-  token: 'MltLQTHPb5EeP7uz', // 默认中文 Token
+  token: 'rJYrxmxmjOkjEx2c', // 默认中文 Token
   baseUrl: 'https://rdk.d-robotics.cc',
   inputs: {},
   systemVariables: {},
@@ -8,7 +8,7 @@ window.difyChatbotConfig = {
 
 // Auto-switch token based on language
 (function() {
-  const cnToken = 'MltLQTHPb5EeP7uz';
+  const cnToken = 'rJYrxmxmjOkjEx2c';
   const enToken = 'YJZVeswIhH8pRFbp';
 
   // Check if URL contains /en/ indicating English locale
@@ -28,21 +28,94 @@ window.difyChatbotConfig = {
  * Keeps the chat window anchored relative to the button.
  */
 (function () {
+  const FEEDBACK_FLOAT_ID = 'feedback-float-entry';
+  const ASSISTANT_BUTTON_ID = 'dify-chatbot-bubble-button';
+  const EDGE_OFFSET = 10;
+  const STACK_GAP = 12;
+  const ASSISTANT_FALLBACK_SIZE = 56;
+
+  function applyAssistantPosition(assistantButton, top, feedbackRect) {
+    const buttonWidth = assistantButton.offsetWidth || ASSISTANT_FALLBACK_SIZE;
+    const left = feedbackRect
+      ? feedbackRect.left
+      : window.innerWidth - buttonWidth - EDGE_OFFSET;
+
+    assistantButton.style.setProperty('position', 'fixed', 'important');
+    assistantButton.style.setProperty('left', `${left}px`, 'important');
+    assistantButton.style.setProperty('right', 'auto', 'important');
+    assistantButton.style.setProperty('bottom', 'auto', 'important');
+    assistantButton.style.setProperty('top', `${top}px`, 'important');
+    assistantButton.style.setProperty('z-index', '100000', 'important');
+    assistantButton.style.setProperty(`--${ASSISTANT_BUTTON_ID}-left`, `${left}px`, 'important');
+    assistantButton.style.setProperty(`--${ASSISTANT_BUTTON_ID}-right`, 'unset', 'important');
+    assistantButton.style.setProperty(`--${ASSISTANT_BUTTON_ID}-bottom`, 'unset', 'important');
+    assistantButton.style.setProperty(`--${ASSISTANT_BUTTON_ID}-top`, `${top}px`, 'important');
+  }
+
+  function positionAssistantAboveFeedback(button) {
+    const assistantButton = button || document.getElementById(ASSISTANT_BUTTON_ID);
+    if (!assistantButton || assistantButton.dataset.userPositioned === 'true') {
+      return;
+    }
+
+    const feedback = document.getElementById(FEEDBACK_FLOAT_ID);
+    if (feedback?.dataset.userPositioned === 'true') {
+      return;
+    }
+
+    if (feedback) {
+      const feedbackRect = feedback.getBoundingClientRect();
+      const buttonHeight = assistantButton.offsetHeight || ASSISTANT_FALLBACK_SIZE;
+      const top = Math.max(EDGE_OFFSET, feedbackRect.top - buttonHeight - STACK_GAP);
+      applyAssistantPosition(assistantButton, top, feedbackRect);
+      return;
+    }
+
+    assistantButton.style.setProperty('position', 'fixed', 'important');
+    assistantButton.style.setProperty('right', `${EDGE_OFFSET}px`, 'important');
+    assistantButton.style.setProperty('left', 'auto', 'important');
+    assistantButton.style.setProperty('top', 'auto', 'important');
+    assistantButton.style.setProperty('bottom', `${EDGE_OFFSET}px`, 'important');
+    assistantButton.style.setProperty('z-index', '100000', 'important');
+  }
+
+  function scheduleAssistantReposition(button, attempts = 8) {
+    let count = 0;
+    const tick = () => {
+      positionAssistantAboveFeedback(button);
+      count += 1;
+      if (count < attempts) {
+        window.setTimeout(tick, 250);
+      }
+    };
+    tick();
+  }
+
+  window.repositionDifyChatbot = positionAssistantAboveFeedback;
+
   const checkInterval = setInterval(() => {
-    const button = document.getElementById('dify-chatbot-bubble-button');
+    const button = document.getElementById(ASSISTANT_BUTTON_ID);
     if (button) {
       clearInterval(checkInterval);
+      scheduleAssistantReposition(button);
       makeDraggable(button);
+      window.addEventListener('resize', () => {
+        if (
+          button.dataset.userPositioned !== 'true' &&
+          document.getElementById(FEEDBACK_FLOAT_ID)?.dataset.userPositioned !== 'true'
+        ) {
+          positionAssistantAboveFeedback(button);
+        }
+      });
     }
-  }, 1000);
+  }, 300);
 
   function makeDraggable(element) {
     let isDragging = false;
     let startX, startY, startLeft, startTop;
     let hasMoved = false;
 
-    // Ensure fixed positioning
-    element.style.position = 'fixed';
+    positionAssistantAboveFeedback(element);
 
     // Mouse events
     element.addEventListener('mousedown', (e) => {
@@ -117,6 +190,7 @@ window.difyChatbotConfig = {
       isDragging = false;
 
       if (hasMoved) {
+        element.dataset.userPositioned = 'true';
         // Prevent click if dragged
         const preventClick = (clickEvent) => {
           clickEvent.stopPropagation();
@@ -155,6 +229,7 @@ window.difyChatbotConfig = {
       document.body.style.userSelect = '';
 
       if (hasMoved) {
+        element.dataset.userPositioned = 'true';
         // Intercept the click event to prevent toggling the chat window after a drag
         const preventClick = (clickEvent) => {
           clickEvent.stopPropagation();
