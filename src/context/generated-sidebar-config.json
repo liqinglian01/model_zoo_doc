@@ -2,7 +2,8 @@
   "rdk_s_guide": {
     "versions": [],
     "products": [
-      "RDK S100/S600"
+      "RDK S100",
+      "RDK S600"
     ]
   },
   "rdk_x3_guide": {

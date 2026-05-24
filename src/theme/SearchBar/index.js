@@ -1,6 +1,1 @@
-import React from "react";
-import SearchBar from "@theme-original/SearchBar";
-
-export default function SearchBarWrapper() {
-  return <SearchBar />;
-}
+export {default} from '@easyops-cn/docusaurus-search-local/dist/client/client/theme/SearchBar/index.jsx';

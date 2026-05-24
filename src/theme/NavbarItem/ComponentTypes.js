@@ -1,6 +1,25 @@
-import ComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
+import DefaultNavbarItem from '@theme/NavbarItem/DefaultNavbarItem';
+import DropdownNavbarItem from '@theme/NavbarItem/DropdownNavbarItem';
+import LocaleDropdownNavbarItem from '@theme/NavbarItem/LocaleDropdownNavbarItem';
+import HtmlNavbarItem from '@theme/NavbarItem/HtmlNavbarItem';
+import DocNavbarItem from '@theme/NavbarItem/DocNavbarItem';
+import DocSidebarNavbarItem from '@theme/NavbarItem/DocSidebarNavbarItem';
+import DocsVersionNavbarItem from '@theme/NavbarItem/DocsVersionNavbarItem';
+import DocsVersionDropdownNavbarItem from '@theme/NavbarItem/DocsVersionDropdownNavbarItem';
+import SearchNavbarItem from '@theme/NavbarItem/SearchNavbarItem';
 import CustomDocScopeSelectors from '@theme/NavbarItem/CustomDocScopeSelectors';
 
-ComponentTypes['custom-DocScopeSelectors'] = CustomDocScopeSelectors;
+const ComponentTypes = {
+  default: DefaultNavbarItem,
+  localeDropdown: LocaleDropdownNavbarItem,
+  search: SearchNavbarItem,
+  dropdown: DropdownNavbarItem,
+  html: HtmlNavbarItem,
+  doc: DocNavbarItem,
+  docSidebar: DocSidebarNavbarItem,
+  docsVersion: DocsVersionNavbarItem,
+  docsVersionDropdown: DocsVersionDropdownNavbarItem,
+  'custom-DocScopeSelectors': CustomDocScopeSelectors,
+};
 
 export default ComponentTypes;
