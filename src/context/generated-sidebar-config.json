@@ -2,14 +2,15 @@
   "python_api": {
     "versions": [],
     "products": [
-      "RDK S100"
-    ],
-    "isCategory": false
+      "RDK S100",
+      "RDK S600"
+    ]
   },
   "python-api": {
     "versions": [],
     "products": [
-      "RDK S100"
+      "RDK S100",
+      "RDK S600"
     ]
   },
   "python_sample": {
@@ -21,7 +22,7 @@
       }
     ],
     "products": [
-      "RDK S100"
+      "RDK S100,RDK S600"
     ],
     "isCategory": true
   },
@@ -34,7 +35,7 @@
       }
     ],
     "products": [
-      "RDK S100"
+      "RDK S100,RDK S600"
     ],
     "isCategory": true
   },
@@ -42,44 +43,16 @@
     "versions": [],
     "products": [
       "RDK S100",
-      "RDK S600",
-      "RDK S100/S600"
-    ],
-    "isCategory": false
+      "RDK S600"
+    ]
   },
   "rdk_x3_guide": {
     "versions": [],
     "products": [
       "RDK-X3"
-    ],
-    "isCategory": false
+    ]
   },
   "rdk_x5_guide": {
-    "versions": [],
-    "products": [
-      "RDK-X5"
-    ],
-    "isCategory": false
-  },
-  "current/rdk_x3_guide": {
-    "versions": [],
-    "products": [
-      "RDK-X3"
-    ]
-  },
-  "current/python_api": {
-    "versions": [],
-    "products": [
-      "RDK S100"
-    ]
-  },
-  "current/rdk_s_guide": {
-    "versions": [],
-    "products": [
-      "RDK S100/S600"
-    ]
-  },
-  "current/rdk_x5_guide": {
     "versions": [],
     "products": [
       "RDK-X5"
