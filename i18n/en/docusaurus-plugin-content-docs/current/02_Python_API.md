@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-sidebar_products: "RDK S100"
+sidebar_products: "RDK S100,RDK S600"
 id: python-api
 title: Python API Manual
 sidebar_label: 4.2 Python API

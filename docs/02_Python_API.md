@@ -1,6 +1,6 @@
 ---
 sidebar_position: 6
-sidebar_products: "RDK S100"
+sidebar_products: "RDK S100,RDK S600"
 id: python-api
 title: Python 接口手册
 sidebar_label: 4.2 Python 接口
