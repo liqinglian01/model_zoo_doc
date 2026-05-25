@@ -16,6 +16,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { collectDocScopeKeys } from '../context/doc-scope-id-utils.js';
 import { normalizeScopeProductList } from '../context/doc-scope-product-utils.js';
 import { parseVersionScopeList } from '../context/doc-scope-version-utils.js';
 
@@ -51,14 +52,6 @@ function parseScopeList(value) {
     .filter(Boolean);
 }
 
-function normalizeDocId(docId) {
-  return docId
-    .split('/')
-    .map((part) => part.replace(/^\d+_/, ''))
-    .join('/')
-    .toLowerCase();
-}
-
 /**
  * 保存配置到文件
  */
@@ -81,25 +74,26 @@ export default function remarkGenerateSidebarConfig() {
       return;
     }
 
-    // 获取文档 ID
-    let docId = '';
+    // 获取文档相对路径（用于路径 key + front matter id 双 key 注册）
+    let relativePath = '';
     if (file.path) {
-      const path = file.path;
-      // 尝试从路径中提取文档 ID
-      const match = path.match(/docs[/\\](.*?)\.md$/);
+      const filePath = file.path;
+      const match = filePath.match(/docs[/\\](.*?)\.md$/);
       if (match) {
-        docId = normalizeDocId(match[1].replace(/[/\\]/g, '/'));
+        relativePath = match[1].replace(/[/\\]/g, '/');
       } else {
-        const matchI18n = path.match(/docusaurus-plugin-content-docs[/\\]current[/\\](.*?)\.md$/);
+        const matchI18n = filePath.match(/docusaurus-plugin-content-docs[/\\]current[/\\](.*?)\.md$/);
         if (matchI18n) {
-          docId = normalizeDocId(matchI18n[1].replace(/[/\\]/g, '/'));
+          relativePath = matchI18n[1].replace(/[/\\]/g, '/');
         }
       }
     }
 
-    if (!docId) {
+    if (!relativePath) {
       return;
     }
+
+    const scopeKeys = collectDocScopeKeys(relativePath, frontmatter.id);
 
     // 解析侧边栏控制字段（产品名与矩阵不区分大小写，写入前尽量规范化为矩阵内写法）
     const sidebarData = {
@@ -107,8 +101,10 @@ export default function remarkGenerateSidebarConfig() {
       products: normalizeScopeProductList(parseScopeList(frontmatter.sidebar_products)),
     };
 
-    // 存储到配置中
-    generatedConfig[docId] = sidebarData;
+    // 同时写入路径 key 与 front matter id key
+    for (const key of scopeKeys) {
+      generatedConfig[key] = sidebarData;
+    }
     
     // 保存配置
     saveConfig();

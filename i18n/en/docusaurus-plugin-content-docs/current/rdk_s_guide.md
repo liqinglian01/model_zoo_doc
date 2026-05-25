@@ -70,7 +70,7 @@ sample_name/
 
 The RDK S series Python samples uniformly use the `hbm_runtime` inference interface, which shares the same interface name as RDK X5's `hbm_runtime`, but with different underlying dependencies: RDK S series is based on `libhbucp`, while RDK X5 is based on `libdnn`.
 
-For the complete interface reference 👉 [RDK S hbm_runtime Python API Documentation](/rdk_s/Algorithm_Application/python-api)
+For the complete interface reference 👉 [RDK S hbm_runtime Python API Documentation](./02_Python_API.md)
 
 C/C++ inference interface documentation: **UCP (`hb_ucp`) Interface Documentation** 👉 [UCP Overview](https://toolchain.d-robotics.cc/guide/ucp/ucp_overview.html)
 

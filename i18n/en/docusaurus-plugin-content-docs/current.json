@@ -414,5 +414,21 @@
   "sidebar.tutorialSidebar.category.多媒体接口使用说明": {
     "message": "Multimedia Interface Usage Instructions",
     "description": "The label for category 多媒体接口使用说明 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.4.3 参考示例（Python）": {
+    "message": "4.3 Reference Samples (Python)",
+    "description": "The label for category 4.3 参考示例（Python） in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.4.3 参考示例（Python）.link.generated-index.description": {
+    "message": "Provide python algorithm development examples",
+    "description": "The generated-index page description for category 4.3 参考示例（Python） in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.4.4 参考示例（C++）": {
+    "message": "4.4 Reference Samples (C++)",
+    "description": "The label for category 4.4 参考示例（C++） in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.4.4 参考示例（C++）.link.generated-index.description": {
+    "message": "Provide C++ algorithm development examples",
+    "description": "The generated-index page description for category 4.4 参考示例（C++） in sidebar tutorialSidebar"
   }
 }

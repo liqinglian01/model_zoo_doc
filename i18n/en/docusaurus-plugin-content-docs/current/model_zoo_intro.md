@@ -82,7 +82,7 @@ Dedicated branch for RDK S100 / S600 series boards, requiring system version RDK
 
 ## Detailed Usage Guides by Platform
 
-- RDK X3 usage guide: [4.1.2 RDK X3 Model Zoo Usage Guide](./rdk_x3_guide.md)
-- RDK X5 usage guide: [4.1.3 RDK X5 Model Zoo Usage Guide](./rdk_x5_guide.md)
-- RDK S Series usage guide: [4.1.4 RDK S Model Zoo Usage Guide](./rdk_s_guide.md)
-- Inference interface reference: [4.1.5 Inference Interface Reference](./infer_api_ref.md)
+- RDK X3 usage guide: [2 RDK X3 Model Zoo Usage Guide](./rdk_x3_guide.md)
+- RDK X5 usage guide: [2 RDK X5 Model Zoo Usage Guide](./rdk_x5_guide.md)
+- RDK S Series usage guide: [2 RDK S Model Zoo Usage Guide](./rdk_s_guide.md)
+- Inference interface reference: [3 Inference Interface Reference](./infer_api_ref.md)
